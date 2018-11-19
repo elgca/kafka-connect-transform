@@ -1,0 +1,41 @@
+group 'io.kafka'
+version '1.0-SNAPSHOT'
+
+apply plugin: 'java'
+apply plugin: 'scala'
+
+sourceCompatibility = 1.8
+
+repositories {
+//    mavenCentral()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public' }
+}
+
+ext {
+    kuduVersion = '1.7.1'
+    kafkaVersion = '2.0.0'
+    scalaMajorVersion = '2.11'
+    scalaVersion = '2.11.12'
+    slf4jVersion = '1.7.12'
+    json4sVersion = '3.6.2'
+    transformVersion = '0.1.0.14'
+    scalaTest = '3.0.1'
+}
+
+dependencies {
+    compileOnly group: 'org.scala-lang', name: 'scala-compiler', version: scalaVersion
+    compile group: 'org.scala-lang', name: 'scala-library', version: scalaVersion
+
+//    compile group: 'org.apache.kudu', name: 'kudu-client', version: kuduVersion
+    compile group: 'com.github.jcustenborder.kafka.connect', name: 'kafka-connect-transform-common', version: transformVersion
+
+    compile group: 'org.apache.kafka', name: 'connect-api', version: kafkaVersion
+    compile group: 'org.apache.kafka', name: 'connect-transforms', version: kafkaVersion
+
+    compile group: 'org.slf4j', name: 'slf4j-simple', version: slf4jVersion
+//    compile group: 'org.json4s', name: "json4s-jackson_$scalaMajorVersion", version: json4sVersion
+
+    testCompile group: 'io.debezium', name: 'debezium-core', version: '0.8.3.Final'
+    testCompile group: 'junit', name: 'junit', version: '4.12'
+    testCompile "org.scalatest:scalatest_$scalaMajorVersion:$scalaTest"
+}
