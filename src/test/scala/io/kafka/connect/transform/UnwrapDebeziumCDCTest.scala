@@ -77,6 +77,19 @@ class UnwrapDebeziumCDCTest extends FunSuite {
     }
   }
 
+  test("test case conversion") {
+    use(new UnwrapDebeziumCDC[SourceRecord]) {
+      transform =>
+        val props = new util.HashMap[String, String]()
+        props.put("case.conversion","upper")
+        transform.configure(props)
+        val record = createCreateRecord()
+        val res = transform.apply(record)
+        assert(res.value().asInstanceOf[Struct].getString("__OPERATE") == "c")
+
+    }
+  }
+
 //  test("testConfig") {
 //
 //  }
